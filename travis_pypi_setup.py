@@ -21,7 +21,7 @@ except:
     from urllib.request import urlopen
 
 
-GITHUB_REPO = 'drix00/xrayspectrumanalyzergui'
+GITHUB_REPO = 'drix00/xrayspectrumanalyzer'
 TRAVIS_CONFIG_FILE = os.path.join(
     os.path.dirname(os.path.abspath(__file__)), '.travis.yml')
 

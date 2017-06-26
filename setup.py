@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 with open('README.rst') as readme_file:
     readme = readme_file.read()
@@ -17,24 +17,24 @@ test_requirements = [
     # TODO: put package test requirements here
 ]
 
+packages = find_packages()
+
 setup(
-    name='xrayspectrumanalyzergui',
+    name='xrayspectrumanalyzer',
     version='0.1.0',
     description="GUI for the x-ray spectrum analyzer project",
     long_description=readme + '\n\n' + history,
     author="Hendrix Demers",
     author_email='hendrix.demers@mail.mcgill.ca',
-    url='https://github.com/drix00/xrayspectrumanalyzergui',
-    packages=[
-        'xrayspectrumanalyzergui',
-    ],
-    package_dir={'xrayspectrumanalyzergui':
-                 'xrayspectrumanalyzergui'},
+    url='https://github.com/drix00/xrayspectrumanalyzer',
+    packages=packages,
+    package_dir={'xrayspectrumanalyzer':
+                 'xrayspectrumanalyzer'},
     include_package_data=True,
     install_requires=requirements,
     license="GNU General Public License v3",
     zip_safe=False,
-    keywords='xrayspectrumanalyzergui',
+    keywords='xrayspectrumanalyzer',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',

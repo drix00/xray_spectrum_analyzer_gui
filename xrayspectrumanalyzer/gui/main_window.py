@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-.. py:currentmodule:: pysemeelsgui.main_window
+.. py:currentmodule:: xrayspectrumanalyzer.gui.main_window
    :synopsis: Main window of the application.
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
@@ -11,7 +11,7 @@ Main window of the application.
 """
 
 ###############################################################################
-# GUI for pySEM-EELS project.
+# GUI for the x-ray spectrum analyzer project
 # Copyright (C) 2017  Hendrix Demers
 #
 # This program is free software: you can redistribute it and/or modify
@@ -35,6 +35,7 @@ import os.path
 # Third party modules.
 from qtpy.QtWidgets import QMainWindow, QAction, QApplication, QStyle, QFileDialog, QDockWidget, QLabel
 from qtpy.QtCore import QSettings, Qt
+from qtpy.QtGui import QIcon
 
 import matplotlib
 # Make sure that we are using QT5
@@ -43,9 +44,9 @@ matplotlib.use('Qt5Agg')
 # Local modules.
 
 # Project modules.
-from pysemeelsgui.spectrum_widget import SpectrumWidget
-from pysemeelsgui.zero_loss_peak_widget import ZeroLossPeakWidget
-from pysemeelsgui.spectra import Spectra
+from xrayspectrumanalyzer.gui.spectrum_widget import SpectrumWidget
+from xrayspectrumanalyzer.gui.spectra import Spectra
+import xrayspectrumanalyzer.gui.svg_rc
 
 # Globals and constants variables.
 
@@ -69,14 +70,45 @@ class MainWindow(QMainWindow):
         self.main_widget.setFocus()
         self.setCentralWidget(self.main_widget)
 
-        # Open spectrum action
-        open_spectrum_action = QAction(standard_icon(QStyle.SP_DialogOpenButton), 'Open spectrum', self)
-        open_spectrum_action.setShortcut('Ctrl+O')
-        open_spectrum_action.setStatusTip('Open spectrum')
-        open_spectrum_action.triggered.connect(self.open_spectrum)
+        # Project action
+        new_project_action = QAction(QIcon(':/oi/svg/document.svg'), 'New project', self)
+        new_project_action.setShortcut('Ctrl+N')
+        new_project_action.setStatusTip('New project')
+        new_project_action.triggered.connect(self.new_project)
+
+        open_project_action = QAction(QIcon(':/oi/svg/envelope-open.svg'), 'Open project', self)
+        open_project_action.setShortcut('Ctrl+O')
+        open_project_action.setStatusTip('Open project')
+        open_project_action.triggered.connect(self.open_project)
+
+        close_project_action = QAction(QIcon(':/oi/svg/envelope-closed.svg'), 'Close project', self)
+        close_project_action.setShortcut('Ctrl+C')
+        close_project_action.setStatusTip('Close project')
+        close_project_action.triggered.connect(self.close_project)
+
+        save_project_action = QAction(QIcon(':/oi/svg/hard-drive.svg'), 'Save project', self)
+        save_project_action.setShortcut('Ctrl+S')
+        save_project_action.setStatusTip('Save project')
+        save_project_action.triggered.connect(self.save_project)
+
+        saveas_project_action = QAction(QIcon(':/oi/svg/hard-drive.svg'), 'Save project as ...', self)
+        # saveas_project_action.setShortcut('Ctrl+S')
+        saveas_project_action.setStatusTip('Save project as ...')
+        saveas_project_action.triggered.connect(self.saveas_project)
+
+        # Spectrum action
+        import_spectrum_action = QAction(QIcon(':/oi/svg/account-login.svg'), 'Import spectrum', self)
+        import_spectrum_action.setShortcut('Ctrl+I')
+        import_spectrum_action.setStatusTip('Import spectrum')
+        import_spectrum_action.triggered.connect(self.import_spectrum)
+
+        export_spectrum_action = QAction(QIcon(':/oi/svg/account-logout.svg'), 'Export spectrum', self)
+        # export_spectrum_action.setShortcut('Ctrl+I')
+        export_spectrum_action.setStatusTip('Export spectrum')
+        export_spectrum_action.triggered.connect(self.export_spectrum)
 
         # Exit action
-        exit_action = QAction(standard_icon(QStyle.SP_TitleBarCloseButton), 'Exit', self)
+        exit_action = QAction(QIcon(':/oi/svg/x.svg'), 'Exit', self)
         exit_action.setShortcut('Ctrl+Q')
         exit_action.setStatusTip('Exit application')
         exit_action.triggered.connect(self.close)
@@ -87,18 +119,34 @@ class MainWindow(QMainWindow):
         # Menu bar.
         menubar = self.menuBar()
         file_menu = menubar.addMenu('&File')
-        file_menu.addAction(open_spectrum_action)
+        file_menu.addAction(new_project_action)
+        file_menu.addAction(open_project_action)
+        file_menu.addAction(save_project_action)
+        file_menu.addAction(saveas_project_action)
+        file_menu.addAction(close_project_action)
+        file_menu.addSeparator()
         file_menu.addAction(exit_action)
 
         view_menu = menubar.addMenu('&View')
+
+        spectrum_menu = menubar.addMenu('&Spectrum')
+        spectrum_menu.addAction(import_spectrum_action)
 
         analysis_menu = menubar.addMenu('&Analysis')
 
         # Toolbar
         file_toolbar = self.addToolBar('File')
-        file_toolbar.addAction(open_spectrum_action)
+        file_toolbar.addAction(new_project_action)
+        file_toolbar.addAction(open_project_action)
+        file_toolbar.addAction(save_project_action)
+        file_toolbar.addAction(saveas_project_action)
+        file_toolbar.addAction(close_project_action)
         file_toolbar.addAction(exit_action)
         view_menu.addAction(file_toolbar.toggleViewAction())
+
+        spectrum_toolbar = self.addToolBar('Spectrum')
+        spectrum_toolbar.addAction(import_spectrum_action)
+        view_menu.addAction(spectrum_toolbar.toggleViewAction())
 
         analysis_toolbar = self.addToolBar('Analysis')
         view_menu.addAction(analysis_toolbar.toggleViewAction())
@@ -115,12 +163,12 @@ class MainWindow(QMainWindow):
         self.addDockWidget(Qt.AllDockWidgetAreas, self.graphic_settings_dock)
         print(self.graphic_settings_dock.objectName())
 
-        self.zero_loss_peak_dock = ZeroLossPeakWidget(self, self.spectra)
-        analysis_menu.addAction(self.zero_loss_peak_dock.toggleViewAction())
-        self.addDockWidget(Qt.AllDockWidgetAreas, self.zero_loss_peak_dock)
+        # self.zero_loss_peak_dock = ZeroLossPeakWidget(self, self.spectra)
+        # analysis_menu.addAction(self.zero_loss_peak_dock.toggleViewAction())
+        # self.addDockWidget(Qt.AllDockWidgetAreas, self.zero_loss_peak_dock)
 
         # Final options.
-        self.setWindowTitle('pySEM-EELS')
+        self.setWindowTitle('X-ray spectrum analyzer')
         self.show()
 
     def closeEvent(self, event):
@@ -128,7 +176,7 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).closeEvent(event)
 
     def save_settings(self):
-        settings = QSettings("openMicroanalysis", "pysemeelsgui")
+        settings = QSettings("openMicroanalysis", "xrayspectrumanalyzer")
         #print(settings.fileName())
 
         settings.beginGroup("MainWindow")
@@ -140,12 +188,12 @@ class MainWindow(QMainWindow):
         settings.setValue("visible", self.graphic_settings_dock.isVisible())
         settings.endGroup()
 
-        settings.beginGroup("zero_loss_peak_dock")
-        settings.setValue("visible", self.zero_loss_peak_dock.isVisible())
-        settings.endGroup()
+        # settings.beginGroup("zero_loss_peak_dock")
+        # settings.setValue("visible", self.zero_loss_peak_dock.isVisible())
+        # settings.endGroup()
 
     def read_settings(self):
-        settings = QSettings("openMicroanalysis", "pysemeelsgui")
+        settings = QSettings("openMicroanalysis", "xrayspectrumanalyzer")
         #print(settings.fileName())
         #settings.clear()
 
@@ -169,18 +217,18 @@ class MainWindow(QMainWindow):
                 self.graphic_settings_dock.setVisible(False)
         settings.endGroup()
 
-        settings.beginGroup("zero_loss_peak_dock")
-        visible_value = settings.value("visible")
-        if visible_value is not None:
-            if visible_value == "true":
-                self.zero_loss_peak_dock.setVisible(True)
-            elif visible_value == "false":
-                self.zero_loss_peak_dock.setVisible(False)
-        settings.endGroup()
+        # settings.beginGroup("zero_loss_peak_dock")
+        # visible_value = settings.value("visible")
+        # if visible_value is not None:
+        #     if visible_value == "true":
+        #         self.zero_loss_peak_dock.setVisible(True)
+        #     elif visible_value == "false":
+        #         self.zero_loss_peak_dock.setVisible(False)
+        # settings.endGroup()
 
 
-    def open_spectrum(self):
-        self.statusBar().showMessage("Opening spectrum", 2000)
+    def import_spectrum(self):
+        self.statusBar().showMessage("Import spectrum", 2000)
 
         path = os.path.dirname(__file__)
         formats = ["*.elv"]
@@ -192,6 +240,25 @@ class MainWindow(QMainWindow):
         elv_file = self.spectra.get_current_elv_file()
         spectrum_data = elv_file.get_spectrum_data()
         self.main_widget.update_figure(spectrum_data)
+
+    def export_spectrum(self):
+        self.statusBar().showMessage("Export spectrum", 2000)
+
+    def new_project(self):
+        self.statusBar().showMessage("New project", 2000)
+
+    def open_project(self):
+        self.statusBar().showMessage("Open project", 2000)
+
+    def close_project(self):
+        self.statusBar().showMessage("Close project", 2000)
+
+    def save_project(self):
+        self.statusBar().showMessage("Save project", 2000)
+
+    def saveas_project(self):
+        self.statusBar().showMessage("Save project as ...", 2000)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

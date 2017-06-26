@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 
 """
-.. py:currentmodule:: xrayspectrumanalyzer.__init__
-   :synopsis: Root package of the project with version information.
+.. py:currentmodule:: xrayspectrumanalyszer.tests.tests
+   :synopsis: Regression testing for the project.
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
-Root package of the project with version information.
+Regression testing for the project.
 """
 
 ###############################################################################
@@ -39,6 +39,6 @@ Root package of the project with version information.
 # Globals and constants variables.
 
 
-__author__ = """Hendrix Demers"""
-__email__ = 'hendrix.demers@mail.mcgill.ca'
-__version__ = '0.1.0'
+if __name__ == "__main__":  # pragma: no cover
+    import nose
+    nose.main()

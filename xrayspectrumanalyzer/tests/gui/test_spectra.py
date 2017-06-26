@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 
 """
-.. py:currentmodule:: xrayspectrumanalyzer.__init__
-   :synopsis: Root package of the project with version information.
+.. py:currentmodule:: xrayspectrumanalyzer.tests.gui.test_spectra
+   :synopsis: Tests for the module :py:mod:`xrayspectrumanalyzer.gui.spectra`
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
-Root package of the project with version information.
+Tests for the module :py:mod:`xrayspectrumanalyzer.gui.spectra`.
 """
 
 ###############################################################################
@@ -29,16 +29,47 @@ Root package of the project with version information.
 ###############################################################################
 
 # Standard library modules.
+import unittest
 
 # Third party modules.
 
 # Local modules.
 
 # Project modules.
+from xrayspectrumanalyzer.gui.spectra import Spectra
+
 
 # Globals and constants variables.
 
+class TestSpectra(unittest.TestCase):
+    """
+    TestCase class for the module `xrayspectrumanalyzer.gui.spectra`.
+    """
 
-__author__ = """Hendrix Demers"""
-__email__ = 'hendrix.demers@mail.mcgill.ca'
-__version__ = '0.1.0'
+    def setUp(self):
+        """
+        Setup method.
+        """
+
+        unittest.TestCase.setUp(self)
+
+    def tearDown(self):
+        """
+        Teardown method.
+        """
+
+        unittest.TestCase.tearDown(self)
+
+    def testSkeleton(self):
+        """
+        First test to check if the testcase is working with the testing framework.
+        """
+
+        # self.fail("Test if the testcase is working.")
+        self.assert_(True)
+
+
+if __name__ == '__main__':  # pragma: no cover
+    import nose
+
+    nose.runmodule()

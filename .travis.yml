@@ -28,5 +28,5 @@ deploy:
     secure: PLEASE_REPLACE_ME
   on:
     tags: true
-    repo: drix00/xrayspectrumanalyzergui
+    repo: drix00/xrayspectrumanalyzer
     condition: $TOXENV == py27
