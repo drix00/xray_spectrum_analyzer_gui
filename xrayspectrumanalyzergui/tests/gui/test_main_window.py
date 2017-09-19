@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 
 """
-.. py:currentmodule:: xrayspectrumanalyzer.tests.gui.test_main_window
-   :synopsis: Tests for the module :py:mod:`xrayspectrumanalyzer.gui.main_window`
+.. py:currentmodule:: xrayspectrumanalyzergui.tests.gui.test_main_window
+   :synopsis: Tests for the module :py:mod:`xrayspectrumanalyzergui.gui.main_window`
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
-Tests for the module :py:mod:`xrayspectrumanalyzer.gui.main_window`.
+Tests for the module :py:mod:`xrayspectrumanalyzergui.gui.main_window`.
 """
 
 ###############################################################################
@@ -36,14 +36,14 @@ import unittest
 # Local modules.
 
 # Project modules.
-import xrayspectrumanalyzer.gui.main_window
+import xrayspectrumanalyzergui.gui.main_window
 
 
 # Globals and constants variables.
 
 class TestMainWindow(unittest.TestCase):
     """
-    TestCase class for the module `xrayspectrumanalyzer.gui.main_window`.
+    TestCase class for the module `xrayspectrumanalyzergui.gui.main_window`.
     """
 
     def setUp(self):

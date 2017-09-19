@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-.. py:currentmodule:: xrayspectrumanalyzer.tests.gui.__init__
+.. py:currentmodule:: xrayspectrumanalyzergui.tests.gui.__init__
    :synopsis: Tests gui package of the project.
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>

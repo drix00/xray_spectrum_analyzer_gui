@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 
 """
-.. py:currentmodule:: xrayspectrumanalyzer.tests.gui.test_spectrum_widget
-   :synopsis: Tests for the module :py:mod:`xrayspectrumanalyzer.gui.spectrum_widget`
+.. py:currentmodule:: xrayspectrumanalyzergui.tests.gui.test_spectrum_widget
+   :synopsis: Tests for the module :py:mod:`xrayspectrumanalyzergui.gui.spectrum_widget`
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
-Tests for the module :py:mod:`xrayspectrumanalyzer.gui.spectrum_widget`.
+Tests for the module :py:mod:`xrayspectrumanalyzergui.gui.spectrum_widget`.
 """
 
 ###############################################################################
@@ -36,14 +36,14 @@ import unittest
 # Local modules.
 
 # Project modules.
-import xrayspectrumanalyzer.gui.spectrum_widget
+import xrayspectrumanalyzergui.gui.spectrum_widget
 
 
 # Globals and constants variables.
 
 class TestSpectrumWidget(unittest.TestCase):
     """
-    TestCase class for the module `xrayspectrumanalyzer.gui.spectrum_widget`.
+    TestCase class for the module `xrayspectrumanalyzergui.gui.spectrum_widget`.
     """
 
     def setUp(self):
