@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 
 """
-.. py:currentmodule:: xrayspectrumanalyzer.tests.__init__
-   :synopsis: Tests package of the project.
+.. py:currentmodule:: xrayspectrumanalyzergui.gui.spectra
+   :synopsis: Container of EELS spectrum.
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
-Tests package of the project.
+Container of EELS spectrum.
 """
 
 ###############################################################################
@@ -29,11 +29,42 @@ Tests package of the project.
 ###############################################################################
 
 # Standard library modules.
+import os.path
 
 # Third party modules.
+import six
 
 # Local modules.
+from pysemeels.hitachi.eels_su.elv_file import ElvFile
 
 # Project modules.
 
 # Globals and constants variables.
+
+class Spectra(object):
+    def __init__(self):
+        self.spectra = {}
+        self.current_elv_file = None
+
+    def open_spectrum(self, file_names):
+        if six.PY3:
+            if isinstance(file_names, str):
+                file_names = [file_names]
+        elif six.PY2:
+            if isinstance(file_names, basestring):
+                file_name = [file_names]
+
+        for file_name in file_names:
+            if os.path.splitext(file_name)[1] == ".elv":
+                with open(file_name, 'r') as elv_text_file:
+                    elv_file = ElvFile()
+                    elv_file.read(elv_text_file)
+
+                    self.set_current_elv_file(elv_file)
+
+    def set_current_elv_file(self, elv_file):
+        self.current_elv_file = elv_file
+
+    def get_current_elv_file(self):
+        return self.current_elv_file
+

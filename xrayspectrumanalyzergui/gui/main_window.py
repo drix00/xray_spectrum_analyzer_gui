@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-.. py:currentmodule:: xrayspectrumanalyzer.gui.main_window
+.. py:currentmodule:: xrayspectrumanalyzergui.gui.main_window
    :synopsis: Main window of the application.
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
@@ -44,9 +44,9 @@ matplotlib.use('Qt5Agg')
 # Local modules.
 
 # Project modules.
-from xrayspectrumanalyzer.gui.spectrum_widget import SpectrumWidget
-from xrayspectrumanalyzer.gui.spectra import Spectra
-import xrayspectrumanalyzer.gui.svg_rc
+from xrayspectrumanalyzergui.gui.spectrum_widget import SpectrumWidget
+from xrayspectrumanalyzergui.gui.spectra import Spectra
+import xrayspectrumanalyzergui.gui.svg_rc
 
 # Globals and constants variables.
 
@@ -176,8 +176,8 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).closeEvent(event)
 
     def save_settings(self):
-        settings = QSettings("openMicroanalysis", "xrayspectrumanalyzer")
-        #print(settings.fileName())
+        settings = QSettings("openMicroanalysis", "xrayspectrumanalyzergui")
+        # print(settings.fileName())
 
         settings.beginGroup("MainWindow")
         settings.setValue("geometry", self.saveGeometry())
@@ -193,9 +193,9 @@ class MainWindow(QMainWindow):
         # settings.endGroup()
 
     def read_settings(self):
-        settings = QSettings("openMicroanalysis", "xrayspectrumanalyzer")
-        #print(settings.fileName())
-        #settings.clear()
+        settings = QSettings("openMicroanalysis", "xrayspectrumanalyzergui")
+        # print(settings.fileName())
+        # settings.clear()
 
         settings.beginGroup("MainWindow")
         geometry_value = settings.value("geometry")
@@ -226,20 +226,19 @@ class MainWindow(QMainWindow):
         #         self.zero_loss_peak_dock.setVisible(False)
         # settings.endGroup()
 
-
     def import_spectrum(self):
         self.statusBar().showMessage("Import spectrum", 2000)
 
         path = os.path.dirname(__file__)
-        formats = ["*.elv"]
-        filter = "Spectrum file ({:s})".format(" ".join(formats))
-        file_names = QFileDialog.getOpenFileName(self, "Open an EELS spectrum", path, filter)
+        formats = ["*.msa", "*.txt"]
+        file_filters = "Spectrum file ({:s})".format(" ".join(formats))
+        file_names = QFileDialog.getOpenFileName(self, "Import an x-ray spectrum", path, file_filters)
 
-        self.spectra.open_spectrum(file_names)
-
-        elv_file = self.spectra.get_current_elv_file()
-        spectrum_data = elv_file.get_spectrum_data()
-        self.main_widget.update_figure(spectrum_data)
+        # self.spectra.open_spectrum(file_names)
+        #
+        # elv_file = self.spectra.get_current_elv_file()
+        # spectrum_data = elv_file.get_spectrum_data()
+        # self.main_widget.update_figure(spectrum_data)
 
     def export_spectrum(self):
         self.statusBar().showMessage("Export spectrum", 2000)

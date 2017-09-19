@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 
 """
-.. py:currentmodule:: xrayspectrumanalyzer.__init__
-   :synopsis: Root package of the project with version information.
+.. py:currentmodule:: xrayspectrumanalyzergui.gui.__init__
+   :synopsis: Gui package of the project.
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
-Root package of the project with version information.
+Gui package of the project.
 """
 
 ###############################################################################
@@ -37,8 +37,3 @@ Root package of the project with version information.
 # Project modules.
 
 # Globals and constants variables.
-
-
-__author__ = """Hendrix Demers"""
-__email__ = 'hendrix.demers@mail.mcgill.ca'
-__version__ = '0.1.0'

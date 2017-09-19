@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-.. py:currentmodule:: xrayspectrumanalyzer.gui.spectrum_widget
+.. py:currentmodule:: xrayspectrumanalyzergui.gui.spectrum_widget
    :synopsis: Widget to display an eels spectrum.
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
@@ -39,11 +39,11 @@ from qtpy.QtCore import Qt
 from matplotlib.backend_bases import key_press_handler
 import qtpy
 if qtpy.API == 'pyqt5':
-	from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-	from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
+    from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+    from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 elif qtpy.API == 'pyqt':
-	from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
-	from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as NavigationToolbar
+    from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
+    from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as NavigationToolbar
 from matplotlib.figure import Figure
 
 # Local modules.
@@ -80,16 +80,16 @@ class SpectrumCanvas(FigureCanvas):
         self.axes.set_xlim(0, 1024)
         self.axes.set_ylim(0, 65535)
 
-        self.axes.set_xlabel(r"Energy loss (eV)")
-        self.axes.set_ylabel(r"Electron intensity")
+        self.axes.set_xlabel(r"X-ray energy (eV)")
+        self.axes.set_ylabel(r"Intensity")
         self.figure.tight_layout()
 
     def update_figure(self, spectrum_data):
         self.axes.cla()
         self.axes.plot(spectrum_data.energies_eV, spectrum_data.counts)
 
-        self.axes.set_xlabel(r"Energy loss (eV)")
-        self.axes.set_ylabel(r"Electron intensity")
+        self.axes.set_xlabel(r"X-ray energy (eV)")
+        self.axes.set_ylabel(r"Intensity")
 
         self.figure.tight_layout()
         self.draw()
