@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 
 """
-.. py:currentmodule:: xrayspectrumanalyzergui.tests.gui.test_main_window
-   :synopsis: Tests for the module :py:mod:`xrayspectrumanalyzergui.gui.main_window`
+.. py:currentmodule:: xrayspectrumanalyzergui.tests.gui.test_spectrum_widget
+   :synopsis: Tests for the module :py:mod:`xrayspectrumanalyzergui.gui.spectrum_widget`
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
-Tests for the module :py:mod:`xrayspectrumanalyzergui.gui.main_window`.
+Tests for the module :py:mod:`xrayspectrumanalyzergui.gui.spectrum_widget`.
 """
 
 ###############################################################################
@@ -36,14 +36,14 @@ import unittest
 # Local modules.
 
 # Project modules.
-import xrayspectrumanalyzergui.gui.main_window
+# import xrayspectrumanalyzergui.gui.spectrum_widget
 
 
 # Globals and constants variables.
 
-class TestMainWindow(unittest.TestCase):
+class TestSpectrumWidget(unittest.TestCase):
     """
-    TestCase class for the module `xrayspectrumanalyzergui.gui.main_window`.
+    TestCase class for the module `xrayspectrumanalyzergui.gui.spectrum_widget`.
     """
 
     def setUp(self):
@@ -65,8 +65,7 @@ class TestMainWindow(unittest.TestCase):
         First test to check if the testcase is working with the testing framework.
         """
 
-        #self.fail("Test if the testcase is working.")
-        self.assert_(True)
+        # self.fail("Test if the testcase is working.")
 
 
 if __name__ == '__main__':  # pragma: no cover

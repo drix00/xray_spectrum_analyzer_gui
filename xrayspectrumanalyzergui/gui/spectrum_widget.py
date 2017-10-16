@@ -30,6 +30,7 @@ Widget to display an eels spectrum.
 
 # Standard library modules.
 import os.path
+import logging
 
 # Third party modules.
 import six
@@ -58,10 +59,8 @@ class SpectrumCanvas(FigureCanvas):
     Ultimately, this is a QWidget (as well as a FigureCanvasAgg, etc.).
     """
 
-    def __init__(self, parent=None, spectra=None, width=3, height=2, dpi=100):
+    def __init__(self, parent=None, width=3, height=2, dpi=100):
         self.fig = Figure(figsize=(width, height), dpi=dpi)
-
-        self.spectra = spectra
 
         self.axes = self.fig.add_subplot(111)
 
@@ -128,20 +127,21 @@ class SpectrumCanvas(FigureCanvas):
             event.ignore()
 
     def open_spectrum(self, file_path):
-        self.spectra.import_spectrum(file_path)
+        logging.info("Open spectrum file: %s", file_path)
+        # self.spectra.import_spectrum(file_path)
 
-        elv_file = self.spectra.get_current_elv_file()
-        spectrum_data = elv_file.get_spectrum_data()
-        self.update_figure(spectrum_data)
+        # elv_file = self.spectra.get_current_elv_file()
+        # spectrum_data = elv_file.get_spectrum_data()
+        # self.update_figure(spectrum_data)
 
 
 class SpectrumWidget(QWidget):
-    def __init__(self, spectra):
+    def __init__(self):
         super(SpectrumWidget, self).__init__()
 
         layout = QVBoxLayout(self)
 
-        self.spectrum_canvas = SpectrumCanvas(self, spectra, width=5, height=4, dpi=100)
+        self.spectrum_canvas = SpectrumCanvas(self, width=5, height=4, dpi=100)
         layout.addWidget(self.spectrum_canvas)
 
         self.mpl_toolbar = NavigationToolbar(self.spectrum_canvas, self)

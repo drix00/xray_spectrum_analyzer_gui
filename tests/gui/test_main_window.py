@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 
 """
-.. py:currentmodule:: xrayspectrumanalyzergui.gui.spectra
-   :synopsis: Container of EELS spectrum.
+.. py:currentmodule:: xrayspectrumanalyzergui.tests.gui.test_main_window
+   :synopsis: Tests for the module :py:mod:`xrayspectrumanalyzergui.gui.main_window`
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
-Container of EELS spectrum.
+Tests for the module :py:mod:`xrayspectrumanalyzergui.gui.main_window`.
 """
 
 ###############################################################################
@@ -29,42 +29,46 @@ Container of EELS spectrum.
 ###############################################################################
 
 # Standard library modules.
-import os.path
+import unittest
 
 # Third party modules.
-import six
 
 # Local modules.
-from pysemeels.hitachi.eels_su.elv_file import ElvFile
 
 # Project modules.
+# import xrayspectrumanalyzergui.gui.main_window
+
 
 # Globals and constants variables.
 
-class Spectra(object):
-    def __init__(self):
-        self.spectra = {}
-        self.current_elv_file = None
+class TestMainWindow(unittest.TestCase):
+    """
+    TestCase class for the module `xrayspectrumanalyzergui.gui.main_window`.
+    """
 
-    def open_spectrum(self, file_names):
-        if six.PY3:
-            if isinstance(file_names, str):
-                file_names = [file_names]
-        elif six.PY2:
-            if isinstance(file_names, basestring):
-                file_name = [file_names]
+    def setUp(self):
+        """
+        Setup method.
+        """
 
-        for file_name in file_names:
-            if os.path.splitext(file_name)[1] == ".elv":
-                with open(file_name, 'r') as elv_text_file:
-                    elv_file = ElvFile()
-                    elv_file.read(elv_text_file)
+        unittest.TestCase.setUp(self)
 
-                    self.set_current_elv_file(elv_file)
+    def tearDown(self):
+        """
+        Teardown method.
+        """
 
-    def set_current_elv_file(self, elv_file):
-        self.current_elv_file = elv_file
+        unittest.TestCase.tearDown(self)
 
-    def get_current_elv_file(self):
-        return self.current_elv_file
+    def testSkeleton(self):
+        """
+        First test to check if the testcase is working with the testing framework.
+        """
 
+        # self.fail("Test if the testcase is working.")
+
+
+if __name__ == '__main__':  # pragma: no cover
+    import nose
+
+    nose.runmodule()
