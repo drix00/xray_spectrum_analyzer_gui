@@ -37,8 +37,8 @@ from logging.handlers import RotatingFileHandler
 # Third party modules.
 from qtpy.QtWidgets import QMainWindow, QAction, QApplication, QStyle, QFileDialog, QDockWidget, QLabel, \
     QDesktopWidget, QMessageBox, QHBoxLayout, QGroupBox, QSizePolicy, QVBoxLayout, QListWidget, QToolTip, QTextEdit
-from qtpy.QtCore import QSettings, Qt, QPoint, QSize
-from qtpy.QtGui import QIcon, QDesktopServices, QKeySequence, QFont
+from qtpy.QtCore import QSettings, Qt, QPoint, QSize, QStandardPaths
+from qtpy.QtGui import QIcon, QKeySequence, QFont
 
 import matplotlib
 # Make sure that we are using QT5
@@ -556,7 +556,8 @@ def create_application():
 
 
 def start_logging():
-    data_location = QDesktopServices.storageLocation(QDesktopServices.DataLocation)
+    data_location = QStandardPaths.writableLocation(QStandardPaths.GenericDataLocation) + \
+                    "/data/{}/{}".format(ORGANIZATION_NAME, APPLICATION_NAME)
     if not os.path.isdir(data_location):
         os.makedirs(data_location)
 
@@ -571,10 +572,10 @@ def start_logging():
     MODULE_LOGGER.info("startLogging")
 
     MODULE_LOGGER.debug("Data location: %s", data_location)
-    MODULE_LOGGER.debug("Applications location: %s", QDesktopServices.storageLocation(QDesktopServices.ApplicationsLocation))
-    MODULE_LOGGER.debug("Home location: %s", QDesktopServices.storageLocation(QDesktopServices.HomeLocation))
-    MODULE_LOGGER.debug("Temp location: %s", QDesktopServices.storageLocation(QDesktopServices.TempLocation))
-    MODULE_LOGGER.debug("Cache location: %s", QDesktopServices.storageLocation(QDesktopServices.CacheLocation))
+    MODULE_LOGGER.debug("Applications location: %s", QStandardPaths.writableLocation(QStandardPaths.ApplicationsLocation))
+    MODULE_LOGGER.debug("Home location: %s", QStandardPaths.writableLocation(QStandardPaths.HomeLocation))
+    MODULE_LOGGER.debug("Temp location: %s", QStandardPaths.writableLocation(QStandardPaths.TempLocation))
+    MODULE_LOGGER.debug("Cache location: %s", QStandardPaths.writableLocation(QStandardPaths.CacheLocation))
 
 
 if __name__ == '__main__':

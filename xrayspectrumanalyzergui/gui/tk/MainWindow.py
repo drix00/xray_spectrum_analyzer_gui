@@ -30,7 +30,7 @@ import os.path
 from PIL import Image
 from PIL import ImageTk
 
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib.figure import Figure
 
 # Local modules.
@@ -183,7 +183,7 @@ class MainWindow(Tk.Frame):
         canvas.show()
         canvas.get_tk_widget().pack(side=Tk.TOP, fill=Tk.BOTH, expand=Tk.YES)
 
-        toolbar = NavigationToolbar2TkAgg(canvas, self._mainArea)
+        toolbar = NavigationToolbar2Tk(canvas, self._mainArea)
         toolbar.update()
         canvas._tkcanvas.pack(side=Tk.TOP, fill=Tk.BOTH, expand=Tk.YES)
 
